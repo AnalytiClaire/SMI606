@@ -3,6 +3,7 @@ title: "SMI606"
 author: "Claire Green"
 date: "15/11/2017"
 output: html_document
+theme: lumen
 ---
 ```{r, echo=F}
 library(knitr)
@@ -81,7 +82,7 @@ There are packages but they are a little complicated. It's often easier to do it
 Consider the time it takes to learn something, like a package, versus doing by hand. If you are only going to use it once, maybe do it by hand, but if you are going to do it a lot of times then maybe consider writing a for-loop or a function that will make your life easier.
 
 ## Question - can you use ggplot for more than just regression?
-Written by a guy called Hadley Wickham. He's built a bunhc of packages for all sorts of things. You can plot any kind of plot with ggplot. If you are interested in what it can do, look at the help or vignettes.
+Written by a guy called Hadley Wickham. He's built a bunch of packages for all sorts of things. You can plot any kind of plot with ggplot. If you are interested in what it can do, look at the help or vignettes.
 
 ## Question - is ggplot in R?
 It's an external package that you can download using install.packages(ggplot2)
