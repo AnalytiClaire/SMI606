@@ -1,5 +1,5 @@
 ---
-title: "SMI606"
+title: "SMI606 Q&A Session"
 author: "Claire Green"
 date: "15/11/2017"
 output: html_document
