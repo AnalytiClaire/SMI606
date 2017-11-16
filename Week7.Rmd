@@ -1,0 +1,97 @@
+---
+title: "SMI606"
+author: "Claire Green"
+date: "15/11/2017"
+output: html_document
+---
+```{r, echo=F}
+library(knitr)
+knit_theme$set("fruit")
+```
+#Predicted Values
+
+Let’s say we want to run a model where we predict polity scores after an assassination attempt, using the scores from before the attempt:
+```{r, echo=F}
+leaders <- read.csv("/Users/clairegreen/Downloads/qss/leaders.csv")
+polityafter <- leaders$polityafter
+politybefore <- leaders$politybefore
+```
+
+```{r}
+#Generate a linear model defined by the change in polity after an assassination attempt
+model <- lm(polityafter ~ politybefore, data = leaders)
+```
+
+If we want to calculate predicted values we can plug in a few values. We know the intercept is -.37642 and the slope is 0.83862. If we want to find out what will happen when the polity score is -10, we can predict that the score after will be:
+
+```{r}
+-0.3 + 0.8 * -10
+```
+
+You can also use the predict function
+
+```{r}
+#The model is what you already know (the intercept and the slope). New data (df) are the new variables you want to find the predicted value for.
+
+df <- data.frame(politybefore = c(-10,0,10))
+
+pred <- predict(model, newdata = df)
+pred 
+```
+
+What if we want more values
+
+```{r}
+#pick out all the unique values from polity before
+#unique allows only unique values (ie no duplicates)
+df <- data.frame(politybefore = unique(leaders$politybefore))
+pred <- predict(model, newdata = df)
+
+```
+
+Let's say we want to add some other things, like whether a country was experiencing an international or civil war before hand.
+
+```{r}
+model.2 <- lm(polityafter ~ politybefore + interwarbefore + civilwarbefore,
+              data = leaders)
+summary(model.2)
+pred <- predict(model, newdata = df)
+```
+
+Because we have other variables in the model, we have to assign values for that. If you are interested in one variable, you will need to set the others to a baseline. If you have binary values you might set them to zero, or take a mean for ordinate or continuous numbers. 
+
+```{r}
+#You have to add each of the variables in separately for R to recognise them when calculating the prediction.
+df2 <- data.frame(politybefore = sort(unique(leaders$politybefore)),
+                  interwarbefore = 0,
+                  civilwarbefore = 0
+                  )
+pred.2 <- predict(model.2, newdata = df2)
+pred.2
+```
+
+##Question - is setting to zero the same as "controlling for variables"?
+Controlling for variables is the inclusion of the variables in your model. You can't exclude these variables, that is called Omitted Variable Bias. Sometimes other predictors than your variable of interest are better predictors - this is important to consider when evaluating your hypothesis. Is what you predicted really true, or is another variable actually a better answer to your question? 
+
+
+##Question - are there packages that allow you to take an equation in R and convert it into a publication-worthy equation?
+There are packages but they are a little complicated. It's often easier to do it once by hand than spend hours learning the package. The downside however is that if you make a mistake or need to change the equation, you have to do it all by hand.
+
+##Top Tip
+Consider the time it takes to learn something, like a package, versus doing by hand. If you are only going to use it once, maybe do it by hand, but if you are going to do it a lot of times then maybe consider writing a for-loop or a function that will make your life easier.
+
+## Question - can you use ggplot for more than just regression?
+Written by a guy called Hadley Wickham. He's built a bunhc of packages for all sorts of things. You can plot any kind of plot with ggplot. If you are interested in what it can do, look at the help or vignettes.
+
+## Question - is ggplot in R?
+It's an external package that you can download using install.packages(ggplot2)
+
+## Question - is ggplot easier?
+It's not necessarily easier but it has a lot of functionality. It has a steeper learning curve but gives you more freedom to make very creative graphs. If you are interested in making great plots then maybe consider taking the time to learn.
+
+## Todd Question - did you like the sheet from last Friday?
+*general murmer of yes*   
+It's nice to go through things step by step. 
+
+
+
