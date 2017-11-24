@@ -1,0 +1,79 @@
+---
+title: "SMI606 Week 9"
+author: "Claire Green"
+date: "22/11/2017"
+output: html_document
+---
+
+#When will the assessment feedback be?
+
+Very soon, it's taking a little while due to moderating. But it will be shortly.
+
+#In the assessment, if you could help explain one of the variables, the one which is PRI 2000s? 
+Usually with turnout there are different estimates. The number at the top is the same - who turned up. The bottom number can change. There are a lot of arguments over what this number is. Should it be the whole population? That includes a lot of people who are not eligable to vote. Over 18 includes theoretically eligible voters but some of these people aren't registered or can't vote e.g. the prison population. 
+
+I would think that these numbers are relatively similar, but these don't appear to be. Something you have to do as a researching is make an informed decision on what you think is the best variable and to justify why you would use this number as opposed to another number. I have looked into this and it's not even clear to me. 
+
+# Question 5: 1994 variable - are we supposed to use it?
+You're using turnout from 2000, from question 1 and 3. You don't have to necessarily *use* the 1994 variable in a calculation, but to look at the data and discuss the problems, if any, that you see with this variable in comparison to the data you're familiar with (i.e. the 2000 data). Something you have to always do as a researcher is to look at your data first, before you touch a single key. 
+
+# Adjusted R squared
+If I was reporting results I would use adjusted r squared because it takes into account the number of variables you have used. Your r squared will increase for every variable you add. When you create a model you want it to be simple but explains a lot. I could make a very complicated model with thousands of variables, but it makes it really hard to interpret. Adjusting penalises you for adding more variables which might not be helping you explain the variation.
+
+# QQ plots
+The point of these kinds of plots is to see how well your model is fitting the data. This will be covered more in the advanced statistics module, so it won't be covered in too much detail here.
+
+# Means
+Outliers have the ability to skew your means. Imagine a typical neighbourhood where all but one house is priced at #200,000. If the final house is worth #10,000,000 that will skew your data so sometimes you have to consider a different averaging calculation, like median. There will always be times you have outliers, which is why it is always important to visualise the spread of your data before you choose which analyses to conduct. 
+
+# Question 2 and Question 4
+Question 2 is general, to give you an idea of why these programs might start. If you want to be elected and you know the poorer vote will be more valuable
+
+In Question 4 you do have to check the correlation between poverty and other variables, run a regression and see what you find.
+
+If I tell you to rescale something, that means you should use that in your analyses. 0 to 1 is an easier scale to use as it is easier to understand the distribution. 
+
+# Is there a difference between rescaling 0 to 1 and using the log function?
+Rescaling is just changing the values. If it was 3-5, we rescale it from 0-1. The distribution of values is the same, the labels have just been changed. Log changes are very different - if you have very extreme spreads of data, it helps you to keep the data in a tangible workspace. In this situation, the original scale is linear, whereas a log scale is logarithmic. Rescaling keeps the scale as linear, just across a different range.
+
+#Precints?
+Precints are the sub-grouped areas of the whole population. These are similar to constituencies in the UK.
+
+#Why is the variable referred to as "official"?
+It's not clear from the literature so this question can't be fully answered. Just consider it one of your options for denominator.
+
+#Generic feedback from previous assessment
+Everyone has done very well, it's not like the whole class has failed! In general I'm quite pleased (given where we started). There are some very sophisticated questions that you guys have posed, something I don't always get from other areas of the university. 
+
+I have written a generic report about everyone's performance which will come out with the results.
+
+#Question 1
+In the first part of the question, the two measures (voter turnout and support for PRI) are both to be analysed in the 2000s data.
+
+#What's the relationship between correlation and linear regression? Could I use them both, or one, or does it change?
+
+Correlation and linear regression are very much related. Correlations tell you what the data cloud looks like. When you look at the scatter plot, do they align. What it doesn't tell you is the exact equation for the slope. Correlation tells you that when x goes up, y goes up, but it doesn't tell you by how much. That's what linear regression *can* tell you. 
+
+Linear regression still don't give you causality. In the same way we say "correlation doesn't mean causation", this still applies to linear regression. We still have to use language like "associated with". Linear regression models allow you to control for lots more variables, but it still won't be able to completely model your question of interest.
+
+
+#If you have 3 dependent variables, can you run this once?
+
+There are functions that can handle multiple dependent variables, but we aren't going to cover this. It depends on the dependent variables - there are tools for multiple time points of the same measure, but completely separate dependent variables aren't easy to model.
+
+#Linear regression for binary data
+If you have an outcome which is binary, it's not really appropriate to apply linear regression. There are ways of calculating a significant difference between binary outcomes (e.g. Chi squared)
+
+#Civic duty as base level? Why would you want to compare other treatment variables? 
+
+If you don't specify a value for r, R will assume these are dummy variables. It then takes the top alphabetised category. So it's important to specify your variables so R knows what to include and what not to.
+
+#Clarity of questions
+It's okay if some of the questions don't make sense to you, because there is a wide range of abilities in the class. Don't be afraid to ask questions directly to us or on Piazza. Don't post code on the assessment, and we won't be able to give answers to the questions, but if you need clarification on the questions then go ahead and ask. 
+
+#This Friday
+We will be finishing off with the spatial data. Chapter 5 is really 3 separate sub-chapters so I've divided it up. This week is less about statistical concepts, and more about how to visualise maps. Final two sessions will be chapter 6 and 7. 
+
+# P Values
+
+There are several problems with p values. The more data points the more likely it will be significant. It's important to talk about what your p value means in the context of your question and your dataset. Are there other measures you can use to improve the validity of your results?
