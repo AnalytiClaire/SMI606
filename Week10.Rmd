@@ -1,0 +1,110 @@
+---
+title: "SMI606 Week 10"
+author: "Claire Green"
+date: "29/11/2017"
+output: html_document
+---
+
+# The third assignment is very open. Will we have any more guidance?
+
+The assignments have been becoming less and less step-by-step on purpose. I want you to choose what data you want to work with and what you want to do with it. Realisitically it's up to you to choose what you want to show. It gives you the freedom to pick something you are interested in, and hopefully the labs will give you some ideas. I think it's the easiest but you guys might think it's hard because it's less controlled. If you can show that you can do one of those three things that's fine by me. You can customise it and add things you think are cool, or you can just do the core work. It's completely up to you. 
+
+If you have specific questions you can email me, and I can give 
+
+# How much does spatial statistics come up in "real publications"
+
+It does, it's a lot to do with how things cluster in space. We're doing more exploratory work, but yeah it exists. You can make really cool maps to help you explain an idea. Geographers may use it more than economists but that isn't to say it isn't useful in any domain.
+
+#If want to get datasets from PDF files, how do you do that?
+
+I don't know how easy it is to do with R, there are other tools you can use. You can google the tools to see if you can find something that extracts text from PDFs. It's probably possible in R but you have to calculate how much longer it might take you. If you are only doing it once, you might even have to do it by hand. Consider R if you think it will either be easy or will be used many, many times.
+
+#If you don't have a rudimentary dataset and you find one online, will you get extra marks?
+
+I'm less interested in the actual data than the analysis, but if you are doing something novel in terms of merging or combining datasets, essentially analysing it in a clever way, then that would be really cool. If sourcing your own dataset means you will be more interested in the process, then go for it!
+
+#Assessment 2: checking the correlation - would it be better to look at the rescaled poverty?
+
+Rescaling won't make any difference in terms of correlation, as the spread of the data is exactly the same. 
+
+# Scaling doesn't change the meaning of results?
+
+Yes and no. The effect will be the same, but the number will be different. A point increase in a 1:100 scale vs a 0:1 scale means something different, so doing calculations on the raw numbers will change your results. Tests where you compare the relative relationships between data points will not change, as these are not dependent on the individual numbers themselves, just the 'space' between them. 
+
+#In terms of poverty affecting the different support for the different parties, do you think the predictive potential would be more accurate if you had the whole range from 0-5 and then rescaled?
+
+I don't really know a lot about the poverty scale they use, there isn't a lot of information on it in the book. I thought rescaling 0:1 would make it make more sense. We don't really have enough information to gauge how good the experimental design is, I just wanted it to use it to teach you the skills you need.
+
+#Correlation vs correlation coefficient?
+
+They are the same thing. However a regression is something different. r-squared can be calculated from the coefficient.
+
+# There are different correlation coefficients. Is there a significant difference?
+
+If you're a statistician then I'm sure there are technically better times for one or the other. For what we're doing it's Pearson's R, and that's fine. You don't need to worry about the different types.
+
+#Trouble with first question?
+
+There isn't a lot of information about the dataset, it's not really in the book, though you might find it in the paper. I can't go into too much detail, but if you look at the data before you analyse it, it might give some clues. Look at your variables, look at your data. This goes past the assessment: always check your data because erroneous values could completely change your results.
+
+# Regression model example
+
+```{r, echo=F}
+leaders <- read.csv("/Users/clairegreen/Documents/PhD/Teaching/SMI606/qss/leaders.csv")
+```
+
+```{r}
+reg <- lm(polityafter ~ politybefore, data = leaders)
+summary(reg)
+```
+
+So we're running a simple regression about polity before and after an assination.
+
+When any of the other variables are set to zero, the intercept tells us where the line will intercept the y axis. This is sometimes useful - if the dependenet variable was productivity and independent was hours worked, an intercept of 0.7 when hours worked is zero would suggest you have a problem with your model. It may or may not be interesting, it depends on the data and the question you're trying to answer.
+
+The slope coefficient tells us how much our dependent variable goes up for one unit change of independent variable. 
+
+
+What happens when we rescale our variables?
+```{r}
+leaders$before <- (leaders$politybefore + 10)/(20)
+summary(leaders$before)
+
+leaders$after <- (leaders$polityafter + 10)/(20)
+summary(leaders$after)
+
+reg <- lm(after ~ before, data = leaders)
+summary(reg)
+```
+
+Here you can see how rescaling affects your results. Your residuals have changed, as has your intercept, however your slope and R-squared is the same. This shows the aspects of the analysis which represent the raw values (which change), and which represent relative relationships (which don't change).
+
+## R-squared
+R-squared is between 0 and 1. Close to zero suggests it's not explaining much of the variation, close to 1 suggests it's modelling the variance well.
+
+An r-sqared of 0.68 is telling us that our model is explaining approximately 2/3 of the variance in the data. Whether that's a "good" number or not is a little arbitrary. It depends on what range of numbers you'd expect based on what has been done before in similar areas. 
+
+R-squared takes into account the number of variables you're adding to your model - it penalises you for each variable.  
+
+#Question - R squared and adjusted R squared with one variable?
+
+The point of adjusting is to take into account the number of variables you are including. It's not often that data scientists will only use one variable in their model, so adjusted R squared is the most commonly reported.
+
+##adding another variable
+```{r}
+reg <- lm(polityafter ~ politybefore + age, data = leaders)
+summary(reg)
+```
+
+Adding age doesn't have a huge effect (0.042...), but you can see the effect it does have. 
+
+#Residuals?
+
+They are the difference between the actual values and the predicted values. If the mean of your residuals is close to zero, that's good! That means your prediction is close to the "truth". 
+
+# Visualising your model?
+
+One of the things to think about is when you have different dependent variables, you can scatter plot the variable you're interested in, along with the fitted line. If you have multiple independent variables it becomes way more complicated. You have different planes that your data sits on. Two is easy to visualise in 2D, 3 in 3D, but past that it becomes impossible to visualise. This is why you often end up choosing one variable of interest to draw your scatter plot. 
+
+#Top Tip
+adding information onto your plot. You can use "points" to add more data points, "lines" to add more lines, "text" to add things like labels on your points, or "abline" to add vertical, horizontal, or sloped lines.
